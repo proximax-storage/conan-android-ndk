@@ -179,7 +179,7 @@ class AndroidNDKConan(ConanFile):
         target = self.llvm_triple
         compiler_flags.append("--target=%s" % target)
         compiler_flags.append("--sysroot=%s" % sysroot_path)
-        compiler_flags.extend(["-g", "-DANDROID", "-ffunction-sections", "-funwind-tables", "-fstack-protector-strong", "-no-canonical-prefixes"])
+        compiler_flags.extend(["-g", "-DANDROID", "-ffunction-sections", "-funwind-tables", "-fstack-protector-strong"])
         # --gcc-toolchain is set by CMAKE_<LANG>_COMPILER_EXTERNAL_TOOLCHAIN
         compiler_flags.append("--gcc-toolchain=%s" % toolchain_root_path)
 
@@ -203,9 +203,7 @@ class AndroidNDKConan(ConanFile):
             else:
                 compiler_flags.append("-O2")
         # enable format string checks (default)
-        compiler_flags.extend(["-Wformat", "-Werror=format-security"])
-        # workaround for a bug in libsodium RDRAND detection...
-        compiler_flags.append("-Werror=implicit-function-declaration")
+        compiler_flags.append("-Wno-error")
 
         # do not re-export libgcc symbols in every binary
         linker_flags = ["-Wl,--exclude-libs,libgcc.a", "-Wl,--exclude-libs,libatomic.a", "--target=%s" % target]
