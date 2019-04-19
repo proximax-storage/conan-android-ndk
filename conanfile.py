@@ -19,7 +19,7 @@ TRIPLE_ABIS = {"x86": "i686",
 
 class AndroidNDKConan(ConanFile):
     name = "android-ndk"
-    version = "r18"
+    version = "r19"
     license = "APACHE2"
     description = "Android NDK"
     url = "https://github.com/theodelrieu/conan-android-ndk"
