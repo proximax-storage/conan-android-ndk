@@ -1,4 +1,5 @@
 from conans import ConanFile, tools
+import platform
 import posixpath
 import os
 
@@ -94,6 +95,18 @@ class AndroidNDKConan(ConanFile):
             del self.options.arm_mode
             del self.options.neon
 
+        if self.settings.os_build not in ["Linux", "Macos", "Windows"]:
+            os_host = platform.system()
+
+            if os_host == 'Darwin':
+                self.settings.os_build = 'Macos'
+            else:
+                self.settings.os_build = os_host
+
+        if self.settings.arch_build != "x86_64":
+            if self.settings.os_build != "Windows" or self.settings.arch_build != "x86":
+                self.settings.arch_build = 'x86_64'
+
         api_level = int(str(self.settings.os.api_level))
         # The NDK's CMake Toolchain file automatically raise the API level to 16
         # It also raises the API level to 21 on 64-bit platform
@@ -108,7 +121,7 @@ class AndroidNDKConan(ConanFile):
         if self.settings.compiler.version != "8" and self.settings.compiler.version != "7.0":
             raise Exception("clang 7.0 or greater required. Detected version = {}".format(self.settings.compiler.version))
         if self.settings.os_build not in ["Linux", "Macos", "Windows"]:
-            raise Exception("Unsupported build machine OS")
+            raise Exception("Unsupported build machine OS. Detected version = {}".format(self.settings.os_build))
         if self.settings.arch_build != "x86_64":
             if self.settings.os_build != "Windows" or self.settings.arch_build != "x86":
                 raise Exception("Unsupported build machine architecture")
