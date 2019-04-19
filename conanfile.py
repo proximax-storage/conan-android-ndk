@@ -132,13 +132,13 @@ class AndroidNDKConan(ConanFile):
 
     def source(self):
         urls = {"Windows_x86_64": ["https://dl.google.com/android/repository/android-ndk-%s-windows-x86_64.zip" % self.version,
-                                   "7fc0e0f94d86ea389bd18761abdc1bae2c005587"],
+                                   "c4cd8c0b6e7618ca0a871a5f24102e40c239f6a3"],
                 "Windows_x86": ["https://dl.google.com/android/repository/android-ndk-%s-windows-x86.zip" % self.version,
-                                "c3422e060b3ea955516e86737bf4237b8482d59a"],
+                                "132cc0c9e31b9e58ad6505b0816ff9e524422ed2"],
                 "Macos_x86_64": ["https://dl.google.com/android/repository/android-ndk-%s-darwin-x86_64.zip" % self.version,
-                                 "86c1a962601b23b8a6d3d535c93b4b0bc4f29249"],
+                                 "f46b8193109bba8a58e0461c1a48f4534051fb25"],
                 "Linux_x86_64": ["https://dl.google.com/android/repository/android-ndk-%s-linux-x86_64.zip" % self.version,
-                                 "2ac2e8e1ef73ed551cac3a1479bb28bd49369212"]
+                                 "fd94d0be6017c6acbd193eb95e09cf4b6f61b834"]
         }
 
         url, sha1 = urls.get("%s_%s" % (self.settings.os_build, self.settings.arch_build))
