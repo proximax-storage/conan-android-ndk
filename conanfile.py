@@ -105,8 +105,8 @@ class AndroidNDKConan(ConanFile):
             raise Exception("64-bit platforms require API level 21+")
         if self.settings.compiler != "clang":
             raise Exception("clang is the only supported compiler")
-        if self.settings.compiler.version != "7.0":
-            raise Exception("clang 7.0 required")
+        if self.settings.compiler.version != "8" and self.settings.compiler.version != "7.0":
+            raise Exception("clang 7.0 or greater required. Detected version = {}".format(self.settings.compiler.version))
         if self.settings.os_build not in ["Linux", "Macos", "Windows"]:
             raise Exception("Unsupported build machine OS")
         if self.settings.arch_build != "x86_64":
